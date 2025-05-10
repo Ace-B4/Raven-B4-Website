@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven B4 Scripting API Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            height: 100%;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+            background-color: #1e293b;
+            overflow-x: hidden;
+            color: #e0d1ff;
+        }
+
+        #bg-layer {
+            background-image: linear-gradient(135deg, #1e293b, #4b5e8c);
+            background-size: cover;
+            opacity: 0.2;
+            background-repeat: no-repeat;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.1;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #a0aec0;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar a:hover {
+            color: #ffffff;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 2rem 3rem;
+            max-width: 1000px;
+            /* Increased from 800px */
+        }
+
+        .content h1 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            color: #e0d1ff;
+            text-shadow: 0 0 10px rgba(179, 98, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #e0d1ff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #d1d5db;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content p {
+            color: #a0aec0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+
+        .content ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content a {
+            color: #60a5fa;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .content a:hover {
+            color: #93c5fd;
+        }
+
+        .code-block {
+            background-color: #1e1e3f;
+            color: #c7d4e0;
+            border-radius: 0.5rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            position: relative;
+            padding-left: 0;
+            margin-left: 0;
+            margin-bottom: 1rem;
+            width: 100%;
+            /* Ensure it takes full width */
+        }
+
+        .code-header {
+            background-color: #2d2b57;
+            padding: 0.5rem 1rem;
+            color: #a599e9;
+            font-weight: bold;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        .language-lua {
+            display: block;
+            padding: 1rem;
+            margin: 0;
+            width: 100%;
+            /* Ensure code takes full width */
+            white-space: pre-wrap;
+            /* Allows text to wrap */
+        }
+
+        .keyword {
+            color: #ff7edb;
+        }
+
+        .string {
+            color: #19f9d8;
+        }
+
+        .comment {
+            color: #b362ff;
+        }
+
+        .function {
+            color: #82aaff;
+        }
+
+        .property {
+            color: #ffcc66;
+        }
+
+        .alert {
+            background-color: rgba(255, 165, 0, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+        .error {
+            background-color: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #f50b0b;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #a0aec0;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .content {
+                margin-left: 200px;
+                padding: 1.5rem;
+            }
+        }
+
+        /* Added styles for better code readability */
+        pre {
+            width: 100%;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Star Background -->
+    <div id="stars-container" class="fixed w-full h-full z-0"></div>
+    <div id="bg-layer" class="fixed w-full h-full z-0"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>Raven B4 Docs</h1>
+        <a href="#introduction">Introduction</a>
+        <a href="#features">Features</a>
+        <a href="#getting-started">Getting Started</a>
+        <a href="#configuration">Configuration Guide</a>
+        <a href="#building-ui">Building Your UI</a>
+        <a href="#notifications">Notifications</a>
+        <a href="#array-animations">Array Animations</a>
+        <a href="#notes">Important Notes</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1 id="introduction">Raven B4 UI Library</h1>
+        <p class="text-lg">Most Powerful & Intuitive Roblox UI Library Customization</p>
+        <div class="error">
+            ❗ <strong>Important</strong>: Config Support is currently in testing. Please report any bugs by submitting an issue on GitHub or filing a bug report on our Discord.
+        </div>
+        <h2 id="features">✨ Features</h2>
+        <ul>
+            <li><strong>Tabs & Modules</strong>: Organize settings into categories like Combat, Render, Utility, or
+                custom tabs.</li>
+            <li><strong>Interactive Elements</strong>: Toggles, sliders, info cards, and more.</li>
+            <li><strong>SaveSystem</strong>: Automatically persists user preferences across sessions.</li>
+            <li><strong>Custom Watermark</strong>: Brand your UI with a personalized watermark.</li>
+            <li><strong>Notifications</strong>: Display alerts with customizable messages and animations.</li>
+            <li><strong>Extensible Design</strong>: Future updates will include color pickers, dropdowns, and more!</li>
+        </ul>
+
+        <h2 id="getting-started">🚀 Getting Started</h2>
+        <h3>Load Raven B4</h3>
+        <p>Include this loadstring at the start of your script to initialize Raven B4:</p>
+        <div class="code-block">
+            <div class="code-header">Load Raven B4</div>
+            <pre class="language-lua">
+<span class="function">loadstring</span>(<span class="function">game:HttpGet</span>(<span class="string">'https://raw.githubusercontent.com/Near-B4/Raven-B4-For-Roblox/main/Raven%20B4%20Loader'</span>))()</pre>
+        </div>
+        <div class="alert">
+            ⚠️ <strong>Critical</strong>: The Loadstring must be set to at the start so it loads properly.
+        </div>
+
+        <h2 id="configuration">🛠️ Configuration Guide</h2>
+        <h3>1. Custom Configuration Naming</h3>
+        <p>Set a unique name for your config file (optional):</p>
+        <div class="code-block">
+            <div class="code-header">Config Name</div>
+            <pre class="language-lua">
+<span class="keyword">shared</span>.RavenConfigName = <span class="string">"My Awesome Config"</span>  <span class="comment">-- Place this ABOVE the loadstring</span>
+<span class="comment">-- Default: "Default Config" or "Gamename" file if unspecified</span></pre>
+        </div>
+
+        <h3>2. Custom Watermark</h3>
+        <p>Add a branded watermark to the UI:</p>
+        <div class="code-block">
+            <div class="code-header">Watermark Setup</div>
+            <pre class="language-lua">
+<span class="keyword">shared</span>.WaterMark = <span class="string">"My Custom Text"</span> <span class="comment">-- Watermark text</span>
+<span class="keyword">shared</span>.WaterMarkColor = <span class="function">Color3.fromRGB</span>(255, 0, 0)  <span class="comment">-- RGB color (place above loadstring)</span></pre>
+        </div>
+
+        <h2 id="building-ui">📂 Building Your UI</h2>
+        <h3>Creating a Tab</h3>
+        <div class="code-block">
+            <div class="code-header">Create Tab</div>
+            <pre class="language-lua">
+<span class="keyword">local</span> MyTab = RavenConfig:<span class="function">CreateWindow</span>(
+    <span class="string">"Tab Name"</span>,   <span class="comment">-- String</span>
+    <span class="function">UDim2</span>.new(0, 0, 0, 0),  <span class="comment">-- Position (UDim2)</span>
+    )</pre>
+        </div>
+
+        <h3>Adding a Module (Toggle)</h3>
+        <div class="code-block">
+            <div class="code-header">Create Toggle</div>
+            <pre class="language-lua">
+<span class="keyword">local</span> MyToggle = MyTab:<span class="function">CreateToggle</span>({
+    <span class="property">Name</span> = <span class="string">"Enable Feature X"</span>,
+    <span class="property">StartingState</span> = <span class="keyword">false</span>,  <span class="comment">-- Initial state (only applies on first load)</span>
+    <span class="property">Callback</span> = <span class="keyword">function</span>(state)
+        <span class="function">print</span>(<span class="string">"Toggle state:"</span>, state)
+    <span class="keyword">end</span>
+})</pre>
+        </div>
+        <div class="alert">
+            ❗ <strong>Avoid duplicate module names</strong> for proper SaveSystem functionality.
+        </div>
+
+        <h3>Attaching an Info Card</h3>
+        <div class="code-block">
+            <div class="code-header">Add Info Card</div>
+            <pre class="language-lua">
+MyToggle:<span class="function">CreateInfo</span>(<span class="string">"This feature enhances your gameplay!"</span>)  <span class="comment">-- Supports multi-line text</span></pre>
+        </div>
+
+        <h3>Nested Mini-Toggle</h3>
+        <div class="code-block">
+            <div class="code-header">Nested Toggle</div>
+            <pre class="language-lua">
+MyToggle:<span class="function">CreateToggle</span>({
+    <span class="property">Name</span> = <span class="string">"Sub-Option"</span>,
+    <span class="property">StartingState</span> = <span class="keyword">true</span>,
+    <span class="property">Callback</span> = <span class="keyword">function</span>(state)
+        <span class="comment">-- Your logic here</span>
+    <span class="keyword">end</span>
+})</pre>
+        </div>
+
+        <h3>Slider Component</h3>
+        <div class="code-block">
+            <div class="code-header">Create Slider</div>
+            <pre class="language-lua">
+MyTab:<span class="function">CreateSlider</span>({
+    <span class="property">Name</span> = <span class="string">"Intensity Level"</span>,
+    <span class="property">Min</span> = 0,
+    <span class="property">Max</span> = 100,
+    <span class="property">Default</span> = 50,
+    <span class="property">Callback</span> = <span class="keyword">function</span>(value)
+        <span class="function">print</span>(<span class="string">"Slider value:"</span>, value)
+    <span class="keyword">end</span>
+})</pre>
+        </div>
+
+        <h2 id="notifications">📢 Notifications</h2>
+        <p>Display contextual alerts to users:</p>
+        <div class="code-block">
+            <div class="code-header">Create Notification</div>
+            <pre class="language-lua">
+<span class="keyword">shared</span>:<span class="function">createnotification</span>(
+    <span class="string">"Connection established!"</span>,  <span class="comment">-- Message</span>
+    5,  <span class="comment">-- Duration (seconds)</span>
+    <span class="string">"System Alert"</span>,  <span class="comment">-- Optional title</span>
+    0.5  <span class="comment">-- Optional animation duration</span>
+)</pre>
+        </div>
+
+        <h2 id="array-animations">🎨 Array Animations</h2>
+        <p>Display whatever color you want in a gradient like animation:</p>
+        <div class="code-block">
+            <div class="code-header">Gradient Setup</div>
+            <pre class="language-lua">
+<span class="keyword">shared</span>.customgradlist = {
+    [<span class="string">"Rainbow"</span>] = { 0, 360 },
+    [<span class="string">"Cotton Candy"</span>] = { 250 , 310 }
+}</pre>
+        </div>
+        <p>The gradient uses a HSV Color System -> hsv(color value, 1, 1)</p>
+
+        <h2 id="notes">❗ Important Notes</h2>
+        <ul>
+            <li><strong>SaveSystem</strong>: User preferences automatically override <code>StartingState</code> after
+                initial setup.</li>
+            <li><strong>Uninject</strong>: Uninjecting also unjects your <code>custom Modules</code> eliminating the need for additional cleanup logic.</li>
+
+        </ul>
+
+        <div class="footer">
+            <p>Crafted with ❤️ by the Raven B4 Team.</p>
+            <p><strong>Happy scripting!</strong> 🦅</p>
+            <p class="text-sm">2025 Raven B4</p>
+        </div>
+    </div>
+
+    <script>
+        // Star background generation
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 100;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 2 + 1;
+                star.className = 'star';
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
+</body>
+
+</html>

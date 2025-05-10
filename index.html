@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roblox Exploit Script - Raven B4</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      min-height: 100vh;
+      height: 100%;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI,
+        Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+      background-color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    #bg-layer {
+      background-image: linear-gradient(135deg, #1e293b, #4b5e8c);
+      background-size: cover;
+      opacity: 0.2;
+      background-repeat: no-repeat;
+    }
+
+    .star {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .navbar {
+      background-color: rgba(15, 23, 42, 0.8);
+      border-radius: 9999px;
+      padding: 0.5rem 1.5rem;
+      backdrop-filter: blur(10px);
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease;
+    }
+
+    .navbar:hover {
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+    }
+
+    .hover-glow:hover {
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.7);
+      transform: scale(1.03);
+      transition: all 0.3s ease;
+    }
+
+    .btn-hover:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.7);
+      transition: all 0.3s ease;
+    }
+
+    /* Completely revised code block styling */
+    .code-block {
+      background-color: #1e1e3f;
+      color: #c7d4e0;
+      border-radius: 0.5rem;
+      font-family: 'Consolas', 'Monaco', monospace;
+      overflow: hidden;
+      /* Change from overflow-x to prevent any overflow */
+      position: relative;
+      padding: 0;
+      /* Remove ALL padding */
+      margin: 0;
+      /* Remove ALL margin */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .code-header {
+      background-color: #2d2b57;
+      padding: 0.5rem 1rem;
+      color: #a599e9;
+      font-weight: bold;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+      width: 100%;
+      /* Full width header */
+      box-sizing: border-box;
+    }
+
+    .language-lua {
+      display: block;
+      padding: 1rem;
+      margin: 0;
+      white-space: pre;
+      box-sizing: border-box;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    /* Reset any pre styling */
+    .code-block pre {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Fix any text indentation */
+    pre.language-lua span {
+      text-indent: 0;
+      padding-left: 0;
+    }
+
+    /* Make sure the code spans don't have extra spacing */
+    .keyword,
+    .string,
+    .comment,
+    .function,
+    .property {
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    /* Ensure proper content alignment */
+    pre.language-lua {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .keyword {
+      color: #ff7edb;
+    }
+
+    .string {
+      color: #19f9d8;
+    }
+
+    .comment {
+      color: #b362ff;
+    }
+
+    .function {
+      color: #82aaff;
+    }
+
+    .property {
+      color: #ffcc66;
+    }
+
+    .feature-card,
+    .discord-card {
+      background-color: rgba(15, 23, 42, 0.37);
+      backdrop-filter: blur(10px);
+    }
+
+    .glow-title {
+      color: #e0d1ff;
+      text-shadow: 0 0 10px rgba(179, 98, 255, 0.8),
+        0 0 20px rgba(179, 98, 255, 0.5);
+    }
+  </style>
+</head>
+
+<body id="body" class="dark bg-slate-800">
+  <!-- Star Background -->
+  <div id="stars-container" class="fixed w-full h-full z-0"></div>
+
+  <div id="bg-layer" class="fixed w-full h-full z-0"></div>
+
+  <div class="flex flex-col min-h-screen relative z-10">
+    <!-- Navbar -->
+    <nav class="navbar sticky top-4 z-40 mt-4 flex items-center justify-between">
+      <div class="flex lg:flex-1">
+        <a href="#body" class="-m-1.5 p-1.5">
+          <span class="text-white text-xl font-bold">Raven B4</span>
+        </a>
+      </div>
+      <div class="hidden lg:flex justify-center space-x-4">
+        <a href="https://raw.githubusercontent.com/Ace-B4/Raven-B4-For-Roblox/refs/heads/main/Loadstring.lua"
+          class="text-sm font-semibold leading-6 transition text-gray-400 hover:text-white px-4 py-2">Script</a>
+        <a href="documentation.html"
+          class="text-sm font-semibold leading-6 transition text-gray-400 hover:text-white px-4 py-2">Documentation</a>
+        <a href="https://discord.gg/4SpwqN979V"
+          class="text-sm font-semibold leading-6 transition text-gray-400 hover:text-white px-4 py-2">Discord</a>
+      </div>
+      <div class="flex lg:hidden">
+        <button class="text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5">
+            </path>
+          </svg>
+        </button>
+      </div>
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative isolate px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl py-28 sm:py-40 lg:py-40">
+        <div class="text-center">
+          <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            Reliable Roblox Script
+            <span style="color: #b362ff;">Raven B4</span>
+          </h1>
+          <p class="mt-6 text-gray-400" style="font-size: 1.1rem">
+            An roblox script that enhances your experience with advanced
+            features.<br />
+            Specializing in games like BedWars, BridgeDuels, BladeBall, and
+            Pet Simulator.<br /><br />
+            Trusted by users and developers since 2023, was the leading script
+            for Roblox.
+          </p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <a href="https://raw.githubusercontent.com/Ace-B4/Raven-B4-For-Roblox/refs/heads/main/Loadstring.lua"
+              class="flex flex-row justify-center items-center rounded-xl to-blue-400 from-blue-600 bg-gradient-to-t px-3.5 py-2.5 text-sm font-bold text-gray-200 transition ease-in-out bg-blue-500 hover:text-white btn-hover">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 mr-1.5">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"></path>
+              </svg>
+              <span class="mb-0.5">Get Script</span>
+            </a>
+            <a href="https://discord.gg/4SpwqN979V"
+              class="text-sm font-semibold leading-6 text-gray-300 to-purple-400 from-purple-600 bg-gradient-to-t rounded-xl px-3.5 py-2.5 transition ease-in-out btn-hover">
+              <span class="mr-1.5" aria-hidden="true">→</span>Join the Discord
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="mt-4 pb-32 relative isolate px-6 lg:px-8">
+      <div class="text-center">
+        <p class="font-semibold text-blue-500" style="font-size: 1.25rem">
+          Features
+        </p>
+        <p class="font-bold text-4xl pt-4 text-white sm:pl-4 sm:pr-4">
+          Everything you need form a Roblox Script
+        </p>
+        <p class="font-normal pt-3 text-gray-400 pt-4 mx-auto max-w-screen-md leading-8">
+          Raven B4 offers a wide range of features set for Roblox users
+          and developers. Optimized for games like BedWars, BridgeDuels,
+          BladeBall, and Pet Simulator.<br />
+          <span class="text-sm">May include times of us just leaving for 1.5 months</span>
+        </p>
+      </div>
+      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+        <div
+          class="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 sm:max-w-none sm:grid-cols-2 lg:grid-cols-2 lg:gap-y-16 w-full">
+          <div class="relative feature-card p-10 dark:border-slate-50/[0.1] rounded-3xl hover-glow transition">
+            <p class="text-base font-bold leading-7 glow-title">
+              <span class="flex h-10 w-10 mb-6 items-center justify-center rounded-lg bg-black/[0.2] shadow"
+                style="box-shadow: rgb(124, 58, 237) 0px 0px 80px 15px">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-6 w-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z">
+                  </path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z"></path>
+                </svg>
+              </span>
+              Wide Script Support
+            </p>
+            <dd class="mt-1 text-base leading-7 text-gray-300">
+              Easily runnable on any lvl 8 executor. Compatible with popular
+              games like BedWars and BladeBall.
+            </dd>
+          </div>
+          <div class="relative feature-card p-10 dark:border-slate-50/[0.1] rounded-3xl hover-glow transition">
+            <p class="text-base font-bold leading-7 glow-title">
+              <span class="flex h-10 w-10 mb-6 items-center justify-center rounded-lg bg-black/[0.2] shadow"
+                style="box-shadow: rgb(124, 58, 237) 0px 0px 80px 15px">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-6 w-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
+                  </path>
+                </svg>
+              </span>
+              High Performance
+            </p>
+            <dd class="mt-1 text-base leading-7 text-gray-300">
+              Optimized GUI and scripts built for performance, ensuring smooth
+              operation even with all modules enabled.
+            </dd>
+          </div>
+          <div class="relative feature-card p-10 dark:border-slate-50/[0.1] rounded-3xl hover-glow transition">
+            <p class="text-base font-bold leading-7 glow-title">
+              <span class="flex h-10 w-10 mb-6 items-center justify-center rounded-lg bg-black/[0.2] shadow"
+                style="box-shadow: rgb(124, 58, 237) 0px 0px 80px 15px">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-6 w-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"></path>
+                </svg>
+              </span>
+              Advanced Config System
+            </p>
+            <dd class="mt-1 text-base leading-7 text-gray-300">
+              Leverage our Lua-based Config System to create powerful modules
+              for any game you like.
+            </dd>
+          </div>
+          <div class="relative feature-card p-10 dark:border-slate-50/[0.1] rounded-3xl hover-glow transition">
+            <p class="text-base font-bold leading-7 glow-title">
+              <span class="flex h-10 w-10 mb-6 items-center justify-center rounded-lg bg-black/[0.2] shadow"
+                style="box-shadow: rgb(124, 58, 237) 0px 0px 80px 15px">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="h-6 w-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z">
+                  </path>
+                </svg>
+              </span>
+              Modular Design
+            </p>
+            <dd class="mt-1 text-base leading-7 text-gray-300">
+              Well-scripted modules tailored for specific games, ensuring
+              flexibility and ease of use.
+            </dd>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Section with Code Documentation -->
+    <div id="visual" class="mt-4 pb-32 relative isolate px-6 lg:px-8">
+      <div class="text-center">
+        <p class="font-semibold text-blue-500" style="font-size: 1.25rem">
+          Config Support
+        </p>
+        <p class="font-bold text-4xl pt-4 text-white sm:pl-4 sm:pr-4">
+          Config Documentation
+        </p>
+        <p class="font-normal pt-3 text-gray-400 pt-4 mx-auto max-w-screen-md leading-8">
+          Think Raven B4 is missing something?<br />
+          You can create your own modules and add them to the via the Config
+          Support System. <br /><span class="text-sm">The example shows how to initialize the Config Support with a
+            Test Module</span>
+        </p>
+        <div class="mt-4">
+          <a href="documentation.html"
+            class="inline-flex items-center rounded-xl to-blue-400 from-blue-600 bg-gradient-to-t px-3.5 py-2.5 text-sm font-bold text-gray-200 transition ease-in-out bg-blue-500 hover:text-white btn-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-5 h-5 mr-2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+            Go to Docs
+          </a>
+        </div>
+      </div>
+      <!-- Documentation and Code Example -->
+      <div class="mx-auto mt-16 max-w-4xl sm:mt-20 lg:mt-24">
+        <div class="grid grid-cols-1 gap-8">
+          <!-- Code Block -->
+          <div class="code-block hover-glow w-full transition">
+            <div class="code-header">RavenB4Config.lua</div>
+            <pre class="language-lua">
+        <span class="keyword">shared</span>.RavenB4Started = <span class="keyword">true</span> <span class="comment">-- REQUIRED!!!!!!</span>
+        <span class="keyword">shared</span>.RavenConfigName = <span class="string">'Default Config'</span> <span class="comment">-- Whatever your Config name is!</span>
+        <span class="keyword">shared</span>.WaterMark = <span class="string">"Random Config Name"</span>
+        <span class="keyword">shared</span>.WaterMarkColor = <span class="function">Color3.fromRGB</span>(255, 255, 255)
+
+        <span class="function">loadstring</span>(<span class="function">game:HttpGet</span>(<span class="string">'https://raw.githubusercontent.com/Near-B4/Raven-B4-For-Roblox/main/Raven%20B4%20Loader'</span>))()
+
+        <span class="keyword">shared</span>:<span class="function">createnotification</span>(<span class="string">"Config Support Loaded!"</span>, 2, <span class="string">"Config"</span>, 0.5)
+
+        Tab = RavenConfig:<span class="function">CreateWindow</span>(<span class="string">"Scripts"</span>, <span class="function">UDim2</span>.new(0.82, 0, 0.8, 0))
+
+        ModuleTest1 = Combat:<span class="function">CreateToggle</span>({
+            <span class="property">Name</span> = <span class="string">"Test"</span>,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        Blatant:<span class="function">CreateToggle</span>({
+            <span class="property">Name</span> = <span class="string">"Test2"</span>,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        ModuleTest2 = Render:<span class="function">CreateToggle</span>({
+            <span class="property">Name</span> = <span class="string">"Test2"</span>,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        ModuleTest2:<span class="function">CreateInfo</span>(<span class="string">"What's up?"</span>)
+        ModuleTest2:<span class="function">CreateSlider</span>({
+            <span class="property">Name</span> = <span class="string">"Test3"</span>,
+            <span class="property">Default</span> = 10,
+            <span class="property">Min</span> = 0,
+            <span class="property">Max</span> = 100,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        FinalModule = Utility:<span class="function">CreateToggle</span>({
+            <span class="property">Name</span> = <span class="string">"Final"</span>,
+            <span class="property">StartingState</span> = <span class="keyword">true</span>,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        FinalModule:<span class="function">CreateToggle</span>({
+            <span class="property">Name</span> = <span class="string">"Final Mini Button"</span>,
+            <span class="property">Callback</span> = <span class="keyword">function</span>(Callback) 
+                <span class="function">print</span>(Callback)
+            <span class="keyword">end</span>
+        })
+        <span class="keyword">shared</span>.RavenB4Completed = <span class="keyword">true</span> <span class="comment">-- REQUIRED!!!!</span>
+    </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discord Community Section -->
+    <div class="pt-14 pl-10 pr-10 pb-14 flex w-full justify-center">
+      <div class="max-w-screen-lg">
+        <div class="discord-card p-10 border dark:border-slate-50/[0.1] w-full mx-auto rounded-3xl hover-glow transition">
+          <p class="font-extrabold text-3xl glow-title">
+            Join our
+            <span style="color: rgb(88, 101, 242)">Discord</span> community
+          </p>
+          <p class="text-gray-300 text-xl pt-3">
+            Join our Discord to get access to Raven B4, receive updates, and
+            get support from our community.
+          </p>
+          <div class="mt-8">
+            <button
+              class="p-3 flex flex-row text-gray-200 hover:text-white font-bold transition rounded-lg hover:scale-105 btn-hover"
+              style="background-color: rgb(88, 101, 242)"
+              onclick="window.location.href='https://discord.gg/4SpwqN979V'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"
+                class="mr-3">
+                <path
+                  d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.077.077 0 0 0-.032.027C.533 9.045-.319 13.579.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 0-.08-.02c-.157.118-.317.238-.478.36a17.47 17.47 0 0 0 14.65 0c-.161-.123-.322-.243-.48-.36a.077.077 0 0 0-.08.02 13.107 13.107 0 0 1-1.872.892.077.077 0 0 0-.041.106c.36.698.772 1.367 1.225 1.994a.077.077 0 0 0 .084.028 19.9 19.9 0 0 0 5.993-3.03.078.078 0 0 0 .032-.057c.445-4.722-.878-9.226-3.548-13.66a.078.078 0 0 0-.032-.027zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.42s.965-2.42 2.157-2.42c1.202 0 2.166 1.085 2.157 2.42s-.955 2.42-2.157 2.42zm7.966 0c-1.183 0-2.157-1.085-2.157-2.42s.965-2.42 2.157-2.42c1.202 0 2.166 1.085 2.157 2.42s-.955 2.42-2.157 2.42z">
+                </path>
+              </svg>
+              Join the community
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="p-6 bg-slate-900/[0.15] border border-slate-50/[0.1] z-10 mt-auto">
+      <div class="mx-auto max-w-screen-xl text-center">
+        <a href="/" class="flex justify-center items-center text-2xl font-semibold text-white">
+          <span class="pt-1 pr-4">Raven B4 For Roblox</span>
+        </a>
+        <p class="my-6 text-gray-400">Powerful Roblox script since 2023.</p>
+        <ul class="flex flex-wrap justify-center items-center mb-6 text-white">
+          <li>
+            <a href="https://www.youtube.com/@Ace_B4"
+              class="mr-2 ml-2 transition text-gray-300 hover:text-white hover:underline md:mr-3 md:ml-3">Youtube</a>
+          </li>
+          <li>
+            <a href="https://discord.gg/4SpwqN979V"
+              class="mr-2 ml-2 transition text-gray-300 hover:text-white hover:underline md:mr-3 md:ml-3">Discord</a>
+          </li>
+          <li>
+            <a href="documentation.html"
+              class="mr-2 ml-2 transition text-gray-300 hover:text-white hover:underline md:mr-3 md:ml-3">Documentation</a>
+          </li>
+        </ul>
+        <span class="text-sm text-gray-400">2025 Raven B4</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Star background generation
+    function createStars() {
+      const container = document.getElementById('stars-container')
+      const starCount = 100
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div')
+        const size = Math.random() * 2 + 1
+        star.className = 'star'
+        star.style.width = `${size}px`
+        star.style.height = `${size}px`
+        star.style.left = `${Math.random() * 100}vw`
+        star.style.top = `${Math.random() * 100}vh`
+        star.style.animationDelay = `${Math.random() * 4}s`
+        container.appendChild(star)
+      }
+    }
+    createStars()
+  </script>
+</body>
+
+</html>
